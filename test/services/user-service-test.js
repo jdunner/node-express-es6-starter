@@ -4,20 +4,9 @@ import sinon from 'sinon';
 import UserService from '../../services/user-service';
 import UserDao from '../../dao/user-dao';
 
-
-
-var userDaoMock = new UserDao({db:{}});
-// var stub = sinon.stub(UserDao, 'findAllUsers');
-
-var UserDaoStub = sinon.spy(function() {
-    return sinon.createStubInstance(UserDao);
-});
-
-var foo = new UserDaoStub();
-
-
 const userService = new UserService({
-    userDao: UserDaoStub
+    userDao: new UserDao(
+        {db:{}})
 })
 
 describe('User Service', () => {

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 /* GET all users page. */
 router.get('/all', (req, res) => {
     res.json({
-        title: 'USERS - List all'
+        title: 'USERS - List all - TESTING'
     });
 });
 
