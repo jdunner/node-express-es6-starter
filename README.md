@@ -22,5 +22,7 @@ This project is designed to be used as a starter to quickly get writing your app
 
 ## MongoDB (Local implementation)
 * Run Mongo on your local machine and point to the data storage location
+
 mongod --dbpath /Users/jdunne5/data/db
-    * 'npm install mongodb --save' has been run to install the driver - remove if not necessary
+
+'npm install mongodb --save' has been run to install the driver - remove if not necessary
