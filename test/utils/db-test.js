@@ -5,18 +5,12 @@ import DatabaseConnection from '../../utils/db'
 describe('Database Setup', () => {
     it('Establish a connection to a database', () => {
 
-        let url = 'mongodb://localhost:27017/nodeExpressStarter'
+        let url = 'mongodb://localhosrt:27017/nodeExpressStarter'
         let database = new DatabaseConnection(url);
 
-        database.connect()
-            .then(
-                () => {
-                    console.log('www')
-                })
-            .catch(
-                (err) => {
-                    console.log(err)
-                })
+        return database.connect().then(function(db) {
+            chai.expect(db).to.not.be.undefined;
+        });
 
     });
 })
