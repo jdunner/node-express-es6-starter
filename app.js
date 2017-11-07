@@ -4,6 +4,10 @@ import Debug from 'debug';
 import express from 'express';
 import logger from 'morgan';
 import path from 'path';
+
+var mongoose = require('mongoose');
+import {Mockgoose} from 'mockgoose';
+
 // import favicon from 'serve-favicon';
 
 import index from './routes/index';
@@ -11,6 +15,32 @@ import users from './routes/users';
 
 const app = express();
 const debug = Debug('node-starter-es-6:app');
+
+//IF we are in Unit/Int testing, load an inmemory MongoDB for Mockgoose
+console.log('process.env.NODE_ENV: ' + process.env.NODE_ENV);
+if(!process.env.NODE_ENV === "test"){
+    let url = 'mongodb://localhost:27017/nodeExpressStarter';
+    mongoose.connect(url, {useMongoClient:true}, function(err, db) {
+        if (err) {
+            console.log('Unable to connect to the server. Please start the server. Error:', err);
+            reject(err);
+        } else {
+            console.log('Connected to Server successfully!');
+        }
+    });
+}else{
+    console.log('Trying to connect to in memory database...');
+    let mockgoose = new Mockgoose(mongoose);
+
+    mockgoose.prepareStorage().then(() => {
+        mongoose.connect('mongodb://foobar/baz');
+        mongoose.connection.on('connected', () => {
+            console.log('db connection is now open');
+        });
+    });
+}
+
+
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

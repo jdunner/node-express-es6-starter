@@ -1,22 +1,24 @@
 import chai from 'chai';
 import sinon from 'sinon';
+import User from '../domain/user';
 
 import UserService from '../../services/user-service';
-import UserDao from '../../dao/user-dao';
 
-const userService = new UserService({
-    userDao: new UserDao(
-        {db:{}})
-})
+const userService = new UserService({})
 
 describe('User Service', () => {
-    it('getAllUsers should call the findAllUsers method on the DAO', () => {
-        // expect(userService.getAllUsers()).to.have.lengthOf(2);
+    it('Should save a new user', () => {
+        const user = new User({
+            username: 'jdunne5',
+            createdBy: 'The Tester'
+        });
+
+        return userService.save(user)
+            .then(function(data){
+                console.log(data)
+        });
 
     });
 
-    it('getUser should return null now as we do not have any data', () => {
-        // expect(userService.getUser(1)).to.be.null;
-    })
 })
 
